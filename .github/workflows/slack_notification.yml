@@ -15,6 +15,6 @@ jobs:
 
       - name: Send message to Slack
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
         run: |
           curl -X POST -H "Content-type: application/json" --data "{\"text\":\"A new push was made to the main branch!\"}" $SLACK_WEBHOOK_URL
