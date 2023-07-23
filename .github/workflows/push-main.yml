@@ -1,0 +1,21 @@
+name: Restrict Push to Master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  restrict_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if the pusher is the repository owner
+        run: echo "OWNER=\$(jq --raw-output '.repository.owner.login' \$GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+
+      - name: Restrict push
+        run: |
+          if [ "${{ github.actor }}" != "${{ env.OWNER }}" ]; then
+            echo "Only the repository owner can push directly to the master branch."
+            exit 1
+          fi
