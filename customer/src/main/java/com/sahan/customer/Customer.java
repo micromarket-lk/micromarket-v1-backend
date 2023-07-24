@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Builder
@@ -26,11 +27,26 @@ public class Customer implements Serializable {
     )
     private Integer id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "firstName is mandatory")
     private String firstName;
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "lastName is mandatory")
     private String lastName;
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "email is mandatory")
     private String email;
-
+    @NotBlank(message = "profileImageUrl is mandatory")
+    private String profileImageUrl;
+    @NotBlank(message = "lastLoginDate is mandatory")
+    private Date lastLoginDate;
+    @NotBlank(message = "lastLoginDateDisplay is mandatory")
+    private Date lastLoginDateDisplay;
+    @NotBlank(message = "joinDate is mandatory")
+    private Date joinDate;
+    @NotBlank(message = "role is mandatory")
+    private String role;
+    @NotBlank(message = "authorities are mandatory")
+    private String[] authorities;
+    @NotBlank(message = "authorities is mandatory")
+    private boolean C;
+    @NotBlank(message = "isNotLocked is mandatory")
+    private boolean isNotLocked;
 }
