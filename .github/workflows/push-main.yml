@@ -3,7 +3,7 @@ name: Restrict Push to Master
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   restrict_push:
