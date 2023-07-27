@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "com.sahan.customer",
+                "com.sahan.core",
                 "com.sahan.amqp"
         }
 )
