@@ -1,6 +1,5 @@
 package com.sahan.customer;
 
-import lombok.Data;
 import lombok.Setter;
 import lombok.ToString;
 

@@ -12,7 +12,7 @@
         <module>eureka-server</module>
         <module>fraud</module>
         <module>clients</module>
-        <module>customer</module>
+        <module>core</module>
         <module>api-gw</module>
         <module>amqp</module>
         <module>notification</module>
