@@ -1,4 +1,4 @@
-package com.sahan.core.Entities;
+package com.sahan.core.Entities.Market;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

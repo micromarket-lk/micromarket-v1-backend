@@ -5,7 +5,7 @@ import com.sahan.clients.fraud.FraudCheckResponse;
 import com.sahan.clients.fraud.FraudClient;
 import com.sahan.clients.notification.NotificationRequest;
 import com.sahan.core.Repostitories.CustomerRepository;
-import com.sahan.core.Entities.Customer;
+import com.sahan.core.Entities.User.Customer;
 import com.sahan.core.Requests.CustomerRegistrationRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

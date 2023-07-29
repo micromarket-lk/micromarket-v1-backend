@@ -1,7 +1,7 @@
 package com.sahan.core.Mappers;
 
 import com.sahan.core.DTOs.CustomerDTO;
-import com.sahan.core.Entities.Customer;
+import com.sahan.core.Entities.User.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
