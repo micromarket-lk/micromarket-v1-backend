@@ -1,4 +1,9 @@
 package com.sahan.core.Requests.Product;
 
-public record ProductCreateRequest() {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public record ProductCreateRequest(String productName) {
 }

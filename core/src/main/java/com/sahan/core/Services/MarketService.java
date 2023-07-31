@@ -1,21 +1,38 @@
 package com.sahan.core.Services;
 
+import com.sahan.core.Entities.Market.Market;
+import com.sahan.core.Repostitories.MarketRepository;
+import com.sahan.core.Requests.Market.MarketDeleteRequest;
+import com.sahan.core.Requests.Market.MarketRegistrationRequest;
+import com.sahan.core.Requests.Market.MarketUpdateRequest;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class MarketService {
+
+    private final MarketRepository marketRepository;
+
     //create
-    public void createMarket() {
+    public void createMarket(MarketRegistrationRequest marketRegistrationRequest) {
+        Market market = Market.builder().marketName(marketRegistrationRequest.getMarketName()).build();
+        marketRepository.saveAndFlush(market);
     }
 
     // get
-    public void getMarket() {
+    public void getMarketByMarketName(MarketRegistrationRequest marketRegistrationRequest) {
+        Market market = marketRepository.findMarketByMarketName(marketRegistrationRequest.getMarketName());
     }
 
     // update
 
-    public void update() {
+    public void update(MarketUpdateRequest marketUpdateRequest) {
+        Market market = marketRepository.findMarketByMarketName(marketUpdateRequest.getMarketName());
+        market.setMarketName(marketUpdateRequest.getMarketName());
     }
 
     // delete
 
-    public void delete() {
+    public void delete(MarketDeleteRequest marketDeleteRequest) {
+        marketRepository.deleteMarketByMarketName(marketDeleteRequest.getMarketName());
     }
 }

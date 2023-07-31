@@ -1,4 +1,9 @@
 package com.sahan.core.Requests.Market;
 
-public record MarketDeleteRequest(String marketId) {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public record MarketDeleteRequest(String marketName) {
 }

@@ -1,11 +1,19 @@
 package com.sahan.core.Entities.Market;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Slf4j
 public class Product {
     @Id
     @SequenceGenerator(
@@ -17,4 +25,5 @@ public class Product {
             generator = "product_id_sequence"
     )
     private String productId;
+    private String productName;
 }

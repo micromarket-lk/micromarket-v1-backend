@@ -1,4 +1,9 @@
 package com.sahan.core.Requests.Market;
 
-public record MarketUpdateRequest() {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public record MarketUpdateRequest(String marketName) {
 }
