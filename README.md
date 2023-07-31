@@ -76,5 +76,3 @@ Kubernetes is used as the orchestration tool to manage the deployment, scaling, 
 Kubernetes enables vertical scaling, allowing individual microservices to handle increased load by allocating more resources to them. This ensures that critical services can handle higher traffic without compromising performance.
 
 ---
-
-This concludes the documentation for the backend architecture of the application. It covers the technology stack, cloud infrastructure, containerization using Docker, and scalability through Kubernetes. The microservice architecture provides flexibility and scalability, while the combination of Oracle and AWS Clouds ensures a robust and reliable hosting environment.
