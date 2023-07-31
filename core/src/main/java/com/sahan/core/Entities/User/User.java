@@ -16,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer implements Serializable, UserDetails {
+public class User implements Serializable, UserDetails {
     @Id
     @SequenceGenerator(
             name = "customer_id_sequence",
@@ -26,7 +26,7 @@ public class Customer implements Serializable, UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "customer_id_sequence"
     )
-    private Integer id;
+    private String id;
 
     @NotBlank(message = "firstName is mandatory")
     private String firstName;
@@ -34,6 +34,8 @@ public class Customer implements Serializable, UserDetails {
     private String lastName;
     @NotBlank(message = "email is mandatory")
     private String email;
+    @NotBlank(message = "username is mandatory")
+    private String userName;
     @NotBlank(message = "profileImageUrl is mandatory")
     private String profileImageUrl;
     @NotBlank(message = "lastLoginDate is mandatory")

@@ -24,7 +24,7 @@ public class Market implements Serializable {
             strategy = GenerationType.SEQUENCE,
             generator = "market_id_sequence"
     )
-    private Integer id;
+    private Integer marketId;
 //    private String name;
 //    private String description;
 //    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)

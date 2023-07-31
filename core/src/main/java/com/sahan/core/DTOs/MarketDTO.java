@@ -1,4 +1,4 @@
 package com.sahan.core.DTOs;
 
-public class MarketDTO {
+public record MarketDTO() {
 }
