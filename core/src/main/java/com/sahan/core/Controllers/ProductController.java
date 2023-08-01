@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/products/")
 @AllArgsConstructor
 public class ProductController {
+
     @GetMapping("getproductbyuser")
     public void getProductByUser(){}
     @GetMapping("getproductbymarket")
