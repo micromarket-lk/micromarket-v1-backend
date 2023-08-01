@@ -57,7 +57,7 @@ public class UserService {
     }
 
     //getUserByName
-    public void getUserByName(@Valid UserGetRequest userGetRequest){
+    public void getUserByUserName(@Valid UserGetRequest userGetRequest){
         User user = userRepository.findUserByUserName(userGetRequest.getUserName());
         log.info(user.toString());
     }

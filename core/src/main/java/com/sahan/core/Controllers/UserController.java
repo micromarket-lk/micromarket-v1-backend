@@ -1,32 +1,42 @@
 package com.sahan.core.Controllers;
 
+import com.sahan.core.Requests.User.UserGetRequest;
 import com.sahan.core.Requests.User.UserRegistrationRequest;
+import com.sahan.core.Requests.User.UserUpdateRequest;
 import com.sahan.core.Services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/v1/users/")
 @AllArgsConstructor
 public class UserController {
-    private final UserService customerService;
-    @PostMapping
+    private final UserService userService;
+    @PostMapping("register")
     public void registerUser(@Valid @RequestBody UserRegistrationRequest userRegistrationRequest) {
         log.info("new customer registration {}", userRegistrationRequest.toString());
-        customerService.registerUser(userRegistrationRequest);
+        userService.registerUser(userRegistrationRequest);
     }
 
     // update
-    public void updateUser(){}
+    @PutMapping("update")
+    public void updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest){
+        log.info("customer update {}", userUpdateRequest.toString());
+        userService.updateUser(userUpdateRequest);
+    }
     // delete
-    public void deleteUser(){}
-    // get by name
-    public void getUser(){}
+//    @DeleteMapping("delete")
+//    public void deleteUser(){
+//        log.info("");
+//    }
+    // get by username
+    @GetMapping("get")
+    public void getUserByUserName(@Valid @RequestBody UserGetRequest userGetRequest){
+        log.info("getting user {}", userGetRequest.getUserName().toString());
+        userService.getUserByUserName(userGetRequest);
+    }
  }
