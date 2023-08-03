@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User implements Serializable, UserDetails {
+@Table(name = "user_table")
+public class User implements Serializable {
     @Id
     @SequenceGenerator(
             name = "customer_id_sequence",
@@ -26,7 +26,7 @@ public class User implements Serializable, UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "customer_id_sequence"
     )
-    private String id;
+    private Integer id;
 
     @NotBlank(message = "firstName is mandatory")
     private String firstName;
@@ -52,34 +52,4 @@ public class User implements Serializable, UserDetails {
     private boolean C;
     @NotBlank(message = "isNotLocked is mandatory")
     private boolean isNotLocked;
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

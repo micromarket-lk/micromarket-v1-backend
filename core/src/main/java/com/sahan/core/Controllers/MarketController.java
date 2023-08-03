@@ -20,24 +20,24 @@ public class MarketController {
 
     @PostMapping("create")
     public void register(@Valid @RequestBody MarketRegistrationRequest marketRegistrationRequest){
-        log.info("register market {}", marketRegistrationRequest.getMarketName());
+        log.info("register market {}", marketRegistrationRequest.marketName());
         marketService.createMarket(marketRegistrationRequest);
     }
     @PutMapping("/uodate")
     public void update(@Valid @RequestBody MarketUpdateRequest marketUpdateRequest){
-        log.info("update market {}", marketUpdateRequest.getMarketName());
+        log.info("update market {}", marketUpdateRequest.marketName());
         marketService.update(marketUpdateRequest);
     }
     //delete market
     @DeleteMapping("/delete")
     public void delete(@Valid @RequestBody MarketDeleteRequest marketDeleteRequest){
-        log.info("delete market {}", marketDeleteRequest.getMarketName());
+        log.info("delete market {}", marketDeleteRequest.marketName());
         marketService.delete(marketDeleteRequest);
     }
     //get market by user
     @GetMapping("/get")
     public void getMarketByUser(@Valid @RequestBody MarketGetRequest marketGetRequest){
-        log.info("get market {}", marketGetRequest.getMarketName());
+        log.info("get market {}", marketGetRequest.marketName());
         marketService.getMarketByMarketName(marketGetRequest);
     }
     // all markets

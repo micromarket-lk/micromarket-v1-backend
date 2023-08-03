@@ -36,7 +36,7 @@ public class UserController {
     // get by username
     @GetMapping("get")
     public void getUserByUserName(@Valid @RequestBody UserGetRequest userGetRequest){
-        log.info("getting user {}", userGetRequest.getUserName().toString());
+        log.info("getting user {}", userGetRequest.userName().toString());
         userService.getUserByUserName(userGetRequest);
     }
  }

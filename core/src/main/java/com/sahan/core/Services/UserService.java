@@ -24,9 +24,9 @@ public class UserService {
     private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerUser(@Valid UserRegistrationRequest userRegistrationRequest) {
-        User user = User.builder().firstName(userRegistrationRequest.getFirstName())
-                .lastName(userRegistrationRequest.getLastName())
-                .email(userRegistrationRequest.getEmail())
+        User user = User.builder().firstName(userRegistrationRequest.firstName())
+                .lastName(userRegistrationRequest.lastName())
+                .email(userRegistrationRequest.email())
         .build();
         userRepository.saveAndFlush(user);
 
@@ -49,16 +49,16 @@ public class UserService {
 
     //update
     public void updateUser(@Valid UserUpdateRequest userUpdateRequest){
-        User user = userRepository.findUserByUserName(userUpdateRequest.getUserName());
-        user.setFirstName(userUpdateRequest.getFirstName());
-        user.setLastName(userUpdateRequest.getLastName());
-        user.setEmail(userUpdateRequest.getEmail());
+        User user = userRepository.findTopUserByUserName(userUpdateRequest.userName());
+        user.setFirstName(userUpdateRequest.firstName());
+        user.setLastName(userUpdateRequest.lastName());
+        user.setEmail(userUpdateRequest.email());
         userRepository.saveAndFlush(user);
     }
 
     //getUserByName
     public void getUserByUserName(@Valid UserGetRequest userGetRequest){
-        User user = userRepository.findUserByUserName(userGetRequest.getUserName());
+        User user = userRepository.findTopUserByUserName(userGetRequest.userName());
         log.info(user.toString());
     }
 

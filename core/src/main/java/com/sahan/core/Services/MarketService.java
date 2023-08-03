@@ -17,25 +17,26 @@ public class MarketService {
 
     //create
     public void createMarket(MarketRegistrationRequest marketRegistrationRequest) {
-        Market market = Market.builder().marketName(marketRegistrationRequest.getMarketName()).build();
+        Market market = Market.builder().marketName(marketRegistrationRequest.marketName()).build();
         marketRepository.saveAndFlush(market);
     }
 
     // get
     public void getMarketByMarketName(MarketGetRequest marketGetRequest) {
-        Market market = marketRepository.findMarketByMarketName(marketGetRequest.getMarketName());
+        Market market = marketRepository.findMarketByMarketName(marketGetRequest.marketName());
+        
     }
 
     // update
 
     public void update(MarketUpdateRequest marketUpdateRequest) {
-        Market market = marketRepository.findMarketByMarketName(marketUpdateRequest.getMarketName());
-        market.setMarketName(marketUpdateRequest.getMarketName());
+        Market market = marketRepository.findMarketByMarketName(marketUpdateRequest.marketName());
+        market.setMarketName(marketUpdateRequest.marketName());
     }
 
     // delete
 
     public void delete(MarketDeleteRequest marketDeleteRequest) {
-        marketRepository.deleteMarketByMarketName(marketDeleteRequest.getMarketName());
+        marketRepository.deleteMarketByMarketName(marketDeleteRequest.marketName());
     }
 }
