@@ -28,7 +28,7 @@ public class MarketController {
     @PostMapping("/create")
     public void createMarket(@Valid @RequestBody MarketRegistrationRequest marketRegistrationRequest) {
         // Validate the market name.
-        String marketName = marketRegistrationRequest.getMarketName();
+        String marketName = marketRegistrationRequest.marketName();
         if (!isValidMarketName(marketName)) {
             throw new IllegalArgumentException("Invalid market name. Market name should be alphanumeric and less than 50 characters.");
         }
@@ -48,8 +48,8 @@ public class MarketController {
     @PutMapping("/update")
     public void updateMarket(@Valid @RequestBody MarketUpdateRequest marketUpdateRequest) {
         // Validate the market name.
-        String oldMarketName = marketUpdateRequest.getOldMarketName();
-        String newMarketName = marketUpdateRequest.getNewMarketName();
+        String oldMarketName = marketUpdateRequest.oldMarketName();
+        String newMarketName = marketUpdateRequest.newMarketName();
         if (!isValidMarketName(newMarketName)) {
             throw new IllegalArgumentException("Invalid market name. Market name should be alphanumeric and less than 50 characters.");
         }
@@ -69,7 +69,7 @@ public class MarketController {
     @DeleteMapping("/delete")
     public void deleteMarket(@Valid @RequestBody MarketDeleteRequest marketDeleteRequest) {
         // Validate the market name.
-        String marketName = marketDeleteRequest.getMarketName();
+        String marketName = marketDeleteRequest.marketName();
         if (!isValidMarketName(marketName)) {
             throw new IllegalArgumentException("Invalid market name. Market name should be alphanumeric and less than 50 characters.");
         }
@@ -89,7 +89,7 @@ public class MarketController {
     @GetMapping("/get")
     public void getMarketByUser(@Valid @RequestBody MarketGetRequest marketGetRequest) {
         // Validate the market name.
-        String marketName = marketGetRequest.getMarketName();
+        String marketName = marketGetRequest.marketName();
         if (!isValidMarketName(marketName)) {
             throw new IllegalArgumentException("Invalid market name. Market name should be alphanumeric and less than 50 characters.");
         }

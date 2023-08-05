@@ -9,6 +9,9 @@ import com.sahan.core.Requests.Market.MarketUpdateRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 // The @AllArgsConstructor annotation is used to generate a constructor with all the required fields as arguments.
 @AllArgsConstructor
 // The @Service annotation marks this class as a Spring service, allowing it to be automatically discovered by Spring's component scanning.
@@ -25,18 +28,18 @@ public class MarketService {
      */
     public void createMarket(MarketRegistrationRequest marketRegistrationRequest) {
         // Validate the request to ensure the market name is not empty or null.
-        if (marketRegistrationRequest == null || marketRegistrationRequest.getMarketName() == null ||
-                marketRegistrationRequest.getMarketName().isEmpty()) {
+        if (marketRegistrationRequest == null || marketRegistrationRequest.marketName() == null ||
+                marketRegistrationRequest.marketName().isEmpty()) {
             throw new IllegalArgumentException("Market name cannot be empty or null.");
         }
 
         // Check if a market with the same name already exists.
-        if (marketRepository.existsByMarketName(marketRegistrationRequest.getMarketName())) {
+        if (marketRepository.findMarketByMarketName(marketRegistrationRequest.marketName()) != null) {
             throw new IllegalArgumentException("A market with the same name already exists.");
         }
 
         // Create a new Market object with the provided market name.
-        Market market = Market.builder().marketName(marketRegistrationRequest.getMarketName()).build();
+        Market market = Market.builder().marketName(marketRegistrationRequest.marketName()).build();
         // Save the new market to the database.
         marketRepository.saveAndFlush(market);
     }
@@ -50,13 +53,13 @@ public class MarketService {
      */
     public Market getMarketByMarketName(MarketGetRequest marketGetRequest) {
         // Validate the request to ensure the market name is not empty or null.
-        if (marketGetRequest == null || marketGetRequest.getMarketName() == null ||
-                marketGetRequest.getMarketName().isEmpty()) {
+        if (marketGetRequest == null || marketGetRequest.marketName() == null ||
+                marketGetRequest.marketName().isEmpty()) {
             throw new IllegalArgumentException("Market name cannot be empty or null.");
         }
 
         // Find the market with the specified market name in the database.
-        Market market = marketRepository.findMarketByMarketName(marketGetRequest.getMarketName());
+        Market market = marketRepository.findMarketByMarketName(marketGetRequest.marketName());
 
         // Check if the market was found in the database.
         if (market == null) {
@@ -75,13 +78,17 @@ public class MarketService {
      */
     public void update(MarketUpdateRequest marketUpdateRequest) {
         // Validate the request to ensure the market name is not empty or null.
-        if (marketUpdateRequest == null || marketUpdateRequest.getMarketName() == null ||
-                marketUpdateRequest.getMarketName().isEmpty()) {
+        if (marketUpdateRequest == null ||
+                marketUpdateRequest.oldMarketName() == null ||
+                marketUpdateRequest.newMarketName() == null ||
+                marketUpdateRequest.oldMarketName().isEmpty() ||
+                marketUpdateRequest.newMarketName().isEmpty()
+    ) {
             throw new IllegalArgumentException("Market name cannot be empty or null.");
         }
 
         // Find the market with the specified market name in the database.
-        Market market = marketRepository.findMarketByMarketName(marketUpdateRequest.getMarketName());
+        Market market = marketRepository.findMarketByMarketName(marketUpdateRequest.oldMarketName());
 
         // Check if the market was found in the database.
         if (market == null) {
@@ -89,7 +96,7 @@ public class MarketService {
         }
 
         // Update the market name with the new value from the update request.
-        market.setMarketName(marketUpdateRequest.getMarketName());
+        market.setMarketName(marketUpdateRequest.newMarketName());
         marketRepository.saveAndFlush(market);
     }
 
@@ -101,19 +108,23 @@ public class MarketService {
      */
     public void delete(MarketDeleteRequest marketDeleteRequest) {
         // Validate the request to ensure the market name is not empty or null.
-        if (marketDeleteRequest == null || marketDeleteRequest.getMarketName() == null ||
-                marketDeleteRequest.getMarketName().isEmpty()) {
+        if (marketDeleteRequest == null || marketDeleteRequest.marketName() == null ||
+                marketDeleteRequest.marketName().isEmpty()) {
             throw new IllegalArgumentException("Market name cannot be empty or null.");
         }
 
         // Check if the market exists in the database before deleting it.
-        if (!marketRepository.existsByMarketName(marketDeleteRequest.getMarketName())) {
+        if (marketRepository.findMarketByMarketName(marketDeleteRequest.marketName()) == null) {
             throw new NoSuchElementException("Market not found with the specified name.");
         }
 
         // Delete the market with the specified market name from the database.
-        marketRepository.deleteMarketByMarketName(marketDeleteRequest.getMarketName());
+        marketRepository.deleteMarketByMarketName(marketDeleteRequest.marketName());
     }
 
 
+    public void getAllMarkets() {
+        List<Market> markets = marketRepository.findAll();
+        markets.forEach(System.out::println);
+    }
 }
