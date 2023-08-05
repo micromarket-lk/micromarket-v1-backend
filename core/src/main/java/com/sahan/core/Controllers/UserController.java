@@ -67,7 +67,7 @@ public class UserController {
     @GetMapping("/get")
     public ResponseEntity<User> getUserByUserName(@Valid @RequestBody UserGetRequest userGetRequest) {
         try {
-            log.info("Getting user by username: {}", userGetRequest.getUserName());
+            log.info("Getting user by username: {}", userGetRequest.userName());
             User user = userService.getUserByUserName(userGetRequest);
             if (user != null) {
                 return ResponseEntity.ok(user);

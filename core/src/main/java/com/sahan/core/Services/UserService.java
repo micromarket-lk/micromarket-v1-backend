@@ -64,7 +64,7 @@ public class UserService {
         validateUserUpdateRequest(userUpdateRequest);
 
         // Find the user by the specified username
-        User user = userRepository.findTopUserByUserName(userUpdateRequest.getUserName());
+        User user = userRepository.findTopUserByUserName(userUpdateRequest.userName());
         if (user == null) {
             throw new IllegalArgumentException("User with the specified username not found.");
         }
@@ -85,13 +85,14 @@ public class UserService {
      * Retrieves a user by username.
      *
      * @param userGetRequest The request object containing the username.
+     * @return
      */
-    public void getUserByUserName(@Valid UserGetRequest userGetRequest) {
+    public User getUserByUserName(@Valid UserGetRequest userGetRequest) {
         // Validate the UserGetRequest
         validateUserGetRequest(userGetRequest);
 
         // Find the user by the specified username
-        User user = userRepository.findTopUserByUserName(userGetRequest.getUserName());
+        User user = userRepository.findTopUserByUserName(userGetRequest.userName());
         if (user == null) {
             throw new IllegalArgumentException("User with the specified username not found.");
         }
@@ -101,6 +102,7 @@ public class UserService {
 
         // Send a notification to the user
         sendUserGetNotification(user);
+        return user;
     }
 
     // Helper method to send a welcome notification to the user
@@ -172,7 +174,7 @@ public class UserService {
             throw new IllegalArgumentException("User update request cannot be null.");
         }
 
-        String userName = request.getUserName();
+        String userName = request.userName();
         if (userName == null || userName.trim().isEmpty()) {
             throw new IllegalArgumentException("Username cannot be empty or null.");
         }
@@ -201,7 +203,7 @@ public class UserService {
             throw new IllegalArgumentException("User get request cannot be null.");
         }
 
-        String userName = request.getUserName();
+        String userName = request.userName();
         if (userName == null || userName.trim().isEmpty()) {
             throw new IllegalArgumentException("Username cannot be empty or null.");
         }

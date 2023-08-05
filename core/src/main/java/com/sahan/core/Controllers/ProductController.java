@@ -29,24 +29,24 @@ public class ProductController {
      *         or ResponseEntity with a bad request status if the userId is invalid,
      *         or ResponseEntity with a server error status if any unexpected exception occurs.
      */
-    @GetMapping("getproductbyuser")
-    public ResponseEntity<?> getProductByUser(@RequestParam Long userId) {
-        try {
-            // Validate the userId parameter
-            if (userId == null || userId <= 0) {
-                // If the userId is invalid, return a bad request response
-                return ResponseEntity.badRequest().body("Invalid userId parameter");
-            }
-
-            // Call the ProductService method to get products by user
-            List<Product> products = productService.getProductByUser(userId);
-            return ResponseEntity.ok(products);
-        } catch (Exception e) {
-            // Handle any unexpected exceptions and return an error response
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while processing the request");
-        }
-    }
+//    @GetMapping("getproductbyuser")
+//    public ResponseEntity<?> getProductByUser(@RequestParam Long userId) {
+//        try {
+//            // Validate the userId parameter
+//            if (userId == null || userId <= 0) {
+//                // If the userId is invalid, return a bad request response
+//                return ResponseEntity.badRequest().body("Invalid userId parameter");
+//            }
+//
+//            // Call the ProductService method to get products by user
+//            List<Product> products = productService.getProductByUser(userId);
+//            return ResponseEntity.ok(products);
+//        } catch (Exception e) {
+//            // Handle any unexpected exceptions and return an error response
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("An error occurred while processing the request");
+//        }
+//    }
 
     /**
      * Retrieves products that belong to the specified market.

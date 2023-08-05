@@ -114,4 +114,6 @@ public class MarketService {
         // Delete the market with the specified market name from the database.
         marketRepository.deleteMarketByMarketName(marketDeleteRequest.getMarketName());
     }
+
+
 }

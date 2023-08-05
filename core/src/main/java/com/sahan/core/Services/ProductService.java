@@ -1,6 +1,7 @@
 package com.sahan.core.Services;
 
 import com.sahan.core.Entities.Market.Product;
+import com.sahan.core.Exceptions.Market.MarketNotFoundException;
 import com.sahan.core.Repostitories.ProductRepository;
 import com.sahan.core.Requests.Product.ProductCreateRequest;
 import com.sahan.core.Requests.Product.ProductDeleteRequest;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @AllArgsConstructor
@@ -29,18 +31,20 @@ public class ProductService {
      */
     public void createProduct(@Valid ProductCreateRequest productCreateRequest) {
         // Validate the request to ensure the product name is not empty or null.
-        String productName = productCreateRequest.getProductName();
+        String productName = productCreateRequest.productName();
         if (productName == null || productName.isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be empty or null.");
         }
 
         // Check if a product with the same name already exists.
-        if (productRepository.existsByProductName(productName)) {
+        if (productRepository.findProductByProductName(productName) != null) {
             throw new IllegalArgumentException("A product with the same name already exists.");
         }
 
         // Create a new Product object with the provided product name.
-        Product product = new Product(productName);
+        //Product product = new Product(productName);
+        Product product = Product.builder().productName(productName).build();
+
         // Save the new product to the database.
         productRepository.saveAndFlush(product);
     }
@@ -55,7 +59,7 @@ public class ProductService {
      */
     public Product getProduct(@Valid ProductGetRequest productGetRequest) {
         // Validate the request to ensure the product name is not empty or null.
-        String productName = productGetRequest.getProductName();
+        String productName = productGetRequest.productName();
         if (productName == null || productName.isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be empty or null.");
         }
@@ -85,8 +89,8 @@ public class ProductService {
      */
     public void updateProduct(@Valid ProductUpdateRequest productUpdateRequest) {
         // Validate the request to ensure the product names are not empty or null.
-        String oldProductName = productUpdateRequest.getOldProductName();
-        String newProductName = productUpdateRequest.getNewProductName();
+        String oldProductName = productUpdateRequest.oldProductName();
+        String newProductName = productUpdateRequest.newProductName();
 
         if (oldProductName == null || oldProductName.isEmpty() ||
                 newProductName == null || newProductName.isEmpty()) {
@@ -102,7 +106,7 @@ public class ProductService {
         }
 
         // Check if the new product name already exists in the database (excluding the current product).
-        if (!oldProductName.equals(newProductName) && productRepository.existsByProductName(newProductName)) {
+        if (!oldProductName.equals(newProductName) && productRepository.findProductByProductName(newProductName) != null) {
             throw new IllegalArgumentException("A product with the new name already exists.");
         }
 
@@ -121,7 +125,9 @@ public class ProductService {
      */
     public void deleteProduct(@Valid ProductDeleteRequest productDeleteRequest) {
         // Validate the request to ensure the product name is not empty or null.
-        String productName = productDeleteRequest.getProductName();
+        String productName = productDeleteRequest.productName();
+
+
         if (productName == null || productName.isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be empty or null.");
         }
@@ -137,4 +143,36 @@ public class ProductService {
         // Delete the product with the specified product name from the database.
         productRepository.delete(product);
     }
+
+    /**
+     * Retrieves a list of products by the specified market name.
+     *
+     * @param market The name of the market to search for products.
+     * @return A list of products found for the specified market.
+     * @throws IllegalArgumentException If the market name is empty or null.
+     * @throws MarketNotFoundException If no products are found for the specified market.
+     */
+    public List<Product> getProductByMarket(String market) throws IllegalArgumentException, MarketNotFoundException {
+        // Validate the market name to ensure it is not empty or null
+        if (market == null || market.trim().isEmpty()) {
+            throw new IllegalArgumentException("Market name cannot be empty or null.");
+        }
+
+        // Call the productRepository to find products by market name
+        List<Product> products = productRepository.findProductsByMarketName(market);
+
+        // Check if products is null (in case the repository returned null instead of an empty list)
+        if (products == null) {
+            throw new MarketNotFoundException("Products not available for market: " + market);
+        }
+
+        // Handle the case when no products are found for the market
+        if (products.isEmpty()) {
+            throw new MarketNotFoundException("No products found for market: " + market);
+        }
+
+        // Return the list of found products
+        return products;
+    }
+
 }
