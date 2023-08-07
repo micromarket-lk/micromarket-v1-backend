@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-// The @AllArgsConstructor annotation is used to generate a constructor with all the required fields as arguments.
 @AllArgsConstructor
-// The @Service annotation marks this class as a Spring service, allowing it to be automatically discovered by Spring's component scanning.
 @Service
 public class MarketService {
 

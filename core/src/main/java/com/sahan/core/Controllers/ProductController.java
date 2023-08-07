@@ -57,7 +57,7 @@ public class ProductController {
      *         or ResponseEntity with a bad request status if the market is empty or null,
      *         or ResponseEntity with a server error status if any unexpected exception occurs.
      */
-    @GetMapping("getproductbymarket")
+    @GetMapping("/getproductbymarket")
     public ResponseEntity<?> getProductByMarket(@RequestParam String market) {
         try {
             // Validate the market parameter

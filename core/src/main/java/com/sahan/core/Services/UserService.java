@@ -224,6 +224,4 @@ public class UserService {
         // Check if the email matches the regex pattern
         return email.matches(emailRegex);
     }
-
-
 }
