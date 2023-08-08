@@ -17,8 +17,6 @@
         <module>amqp</module>
         <module>notification</module>
         <module>api-gw</module>
-        <module>auth</module>
-        <module>market</module>
     </modules>
 
     <properties>
