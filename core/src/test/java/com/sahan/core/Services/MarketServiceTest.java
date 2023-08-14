@@ -9,18 +9,23 @@ import com.sahan.core.Requests.Market.MarketDeleteRequest;
 import com.sahan.core.Requests.Market.MarketGetRequest;
 import com.sahan.core.Requests.Market.MarketRegistrationRequest;
 import com.sahan.core.Requests.Market.MarketUpdateRequest;
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.NoSuchElementException;
 
+@AllArgsConstructor
+@SpringBootTest
 public class MarketServiceTest {
+
+    private final MarketService marketService;
 
     @Test
     public void testCreateMarket() {
-        MarketService marketService = new MarketService(new MarketRepositoryMock());
 
         // Test successful market creation
         MarketRegistrationRequest request = new MarketRegistrationRequest("New Market");
@@ -56,8 +61,6 @@ public class MarketServiceTest {
 
     @Test
     public void testGetMarketByMarketName() {
-        MarketService marketService = new MarketService(new MarketRepositoryMock());
-
         // Test successful retrieval
         MarketGetRequest request = new MarketGetRequest("Existing Market");
         Market market = marketService.getMarketByMarketName(request);
@@ -94,8 +97,6 @@ public class MarketServiceTest {
 
     @Test
     public void testUpdate() {
-        MarketService marketService = new MarketService(new MarketRepositoryMock());
-
         // Test successful market update
         MarketUpdateRequest request = new MarketUpdateRequest("Existing Market", "Updated Market");
         marketService.update(request);
@@ -132,8 +133,6 @@ public class MarketServiceTest {
 
     @Test
     public void testDelete() {
-        MarketService marketService = new MarketService(new MarketRepositoryMock());
-
         // Test successful market deletion
         MarketDeleteRequest request = new MarketDeleteRequest("Existing Market");
         marketService.delete(request);

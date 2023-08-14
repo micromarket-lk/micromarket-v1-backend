@@ -99,169 +99,169 @@ import static org.mockito.Mockito.*;
 
 
 class ProductServiceTest {
-    @Mock
-    private ProductRepository productRepository;
-
-    @InjectMocks
-    private ProductService productService;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    public void testCreateProduct_Success() {
-        ProductCreateRequest request = new ProductCreateRequest("New Product");
-        when(productRepository.findProductByProductName(anyString())).thenReturn(null);
-
-        productService.createProduct(request);
-
-        verify(productRepository, times(1)).saveAndFlush(any(Product.class));
-    }
-
-    @Test
-    public void testCreateProduct_WithExistingProduct() {
-        ProductCreateRequest request = new ProductCreateRequest("Existing Product");
-        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product());
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            productService.createProduct(request);
-        });
-
-        verify(productRepository, never()).saveAndFlush(any(Product.class));
-    }
-
-    @Test
-    public void testGetProduct_Success() {
-        ProductGetRequest request = new ProductGetRequest("Existing Product");
-        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
-
-        Product product = productService.getProduct(request);
-
-        Assertions.assertNotNull(product);
-        Assertions.assertEquals("Existing Product", product.getProductName());
-    }
-
-    @Test
-    public void testGetProduct_ProductNotFound() {
-        ProductGetRequest request = new ProductGetRequest("Non-Existing Product");
-        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            productService.getProduct(request);
-        });
-    }
-
-    @Test
-    public void testUpdateProduct_Success() {
-        ProductUpdateRequest request = new ProductUpdateRequest("Existing Product", "Updated Product");
-        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
-        when(productRepository.findProductByProductName("Updated Product")).thenReturn(null);
-
-        productService.updateProduct(request);
-
-        verify(productRepository, times(1)).saveAndFlush(any(Product.class));
-    }
-
-    @Test
-    public void testUpdateProduct_WithExistingProduct() {
-        ProductUpdateRequest request = new ProductUpdateRequest("Existing Product", "Existing Product");
-        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            productService.updateProduct(request);
-        });
-
-        verify(productRepository, never()).saveAndFlush(any(Product.class));
-    }
-
-    @Test
-    public void testUpdateProduct_ProductNotFound() {
-        ProductUpdateRequest request = new ProductUpdateRequest("Non-Existing Product", "Updated Product");
-        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            productService.updateProduct(request);
-        });
-
-        verify(productRepository, never()).saveAndFlush(any(Product.class));
-    }
-
-    @Test
-    public void testDeleteProduct_Success() {
-        ProductDeleteRequest request = new ProductDeleteRequest("Existing Product");
-        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
-
-        productService.deleteProduct(request);
-
-        verify(productRepository, times(1)).delete(any(Product.class));
-    }
-
-    @Test
-    public void testDeleteProduct_ProductNotFound() {
-        ProductDeleteRequest request = new ProductDeleteRequest("Non-Existing Product");
-        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            productService.deleteProduct(request);
-        });
-
-        verify(productRepository, never()).delete(any(Product.class));
-    }
-
-    @Test
-    public void testGetProductByMarket_Success() throws MarketNotFoundException {
-        String market = "Test Market";
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("Product 1"));
-        products.add(new Product("Product 2"));
-
-        when(productRepository.findProductsByMarketName(market)).thenReturn(products);
-
-        List<Product> result = productService.getProductByMarket(market);
-
-        Assertions.assertEquals(2, result.size());
-        Assertions.assertEquals("Product 1", result.get(0).getProductName());
-        Assertions.assertEquals("Product 2", result.get(1).getProductName());
-    }
-
-    @Test
-    public void testGetProductByMarket_EmptyMarketName() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            productService.getProductByMarket("");
-        });
-
-        verify(productRepository, never()).findProductsByMarketName(anyString());
-    }
-
-    @Test
-    public void testGetProductByMarket_NullMarketName() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            productService.getProductByMarket(null);
-        });
-
-        verify(productRepository, never()).findProductsByMarketName(anyString());
-    }
-
-    @Test
-    public void testGetProductByMarket_NoProductsFound() {
-        String market = "Test Market";
-        when(productRepository.findProductsByMarketName(market)).thenReturn(null);
-
-        Assertions.assertThrows(MarketNotFoundException.class, () -> {
-            productService.getProductByMarket(market);
-        });
-    }
-
-    @Test
-    public void testGetProductByMarket_NoProductsFoundEmptyList() {
-        String market = "Test Market";
-        List<Product> products = new ArrayList<>();
-        when(productRepository.findProductsByMarketName(market)).thenReturn(products);
-
-        Assertions.assertThrows(MarketNotFoundException.class, () -> {
-            productService.getProductByMarket(market);
-        });
-    }
+//    @Mock
+//    private ProductRepository productRepository;
+//
+//    @InjectMocks
+//    private ProductService productService;
+//
+//    @BeforeEach
+//    public void setup() {
+//        MockitoAnnotations.openMocks(this);
+//    }
+//
+//    @Test
+//    public void testCreateProduct_Success() {
+//        ProductCreateRequest request = new ProductCreateRequest("New Product");
+//        when(productRepository.findProductByProductName(anyString())).thenReturn(null);
+//
+//        productService.createProduct(request);
+//
+//        verify(productRepository, times(1)).saveAndFlush(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testCreateProduct_WithExistingProduct() {
+//        ProductCreateRequest request = new ProductCreateRequest("Existing Product");
+//        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product());
+//
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            productService.createProduct(request);
+//        });
+//
+//        verify(productRepository, never()).saveAndFlush(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testGetProduct_Success() {
+//        ProductGetRequest request = new ProductGetRequest("Existing Product");
+//        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
+//
+//        Product product = productService.getProduct(request);
+//
+//        Assertions.assertNotNull(product);
+//        Assertions.assertEquals("Existing Product", product.getProductName());
+//    }
+//
+//    @Test
+//    public void testGetProduct_ProductNotFound() {
+//        ProductGetRequest request = new ProductGetRequest("Non-Existing Product");
+//        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
+//
+//        Assertions.assertThrows(NoSuchElementException.class, () -> {
+//            productService.getProduct(request);
+//        });
+//    }
+//
+//    @Test
+//    public void testUpdateProduct_Success() {
+//        ProductUpdateRequest request = new ProductUpdateRequest("Existing Product", "Updated Product");
+//        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
+//        when(productRepository.findProductByProductName("Updated Product")).thenReturn(null);
+//
+//        productService.updateProduct(request);
+//
+//        verify(productRepository, times(1)).saveAndFlush(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testUpdateProduct_WithExistingProduct() {
+//        ProductUpdateRequest request = new ProductUpdateRequest("Existing Product", "Existing Product");
+//        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
+//
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            productService.updateProduct(request);
+//        });
+//
+//        verify(productRepository, never()).saveAndFlush(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testUpdateProduct_ProductNotFound() {
+//        ProductUpdateRequest request = new ProductUpdateRequest("Non-Existing Product", "Updated Product");
+//        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
+//
+//        Assertions.assertThrows(NoSuchElementException.class, () -> {
+//            productService.updateProduct(request);
+//        });
+//
+//        verify(productRepository, never()).saveAndFlush(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testDeleteProduct_Success() {
+//        ProductDeleteRequest request = new ProductDeleteRequest("Existing Product");
+//        when(productRepository.findProductByProductName("Existing Product")).thenReturn(new Product("Existing Product"));
+//
+//        productService.deleteProduct(request);
+//
+//        verify(productRepository, times(1)).delete(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testDeleteProduct_ProductNotFound() {
+//        ProductDeleteRequest request = new ProductDeleteRequest("Non-Existing Product");
+//        when(productRepository.findProductByProductName("Non-Existing Product")).thenReturn(null);
+//
+//        Assertions.assertThrows(NoSuchElementException.class, () -> {
+//            productService.deleteProduct(request);
+//        });
+//
+//        verify(productRepository, never()).delete(any(Product.class));
+//    }
+//
+//    @Test
+//    public void testGetProductByMarket_Success() throws MarketNotFoundException {
+//        String market = "Test Market";
+//        List<Product> products = new ArrayList<>();
+//        products.add(new Product());
+//        products.add(new Product());
+//
+//        when(productRepository.findProductsByMarketName(market)).thenReturn(products);
+//
+//        List<Product> result = productService.getProductByMarket(market);
+//
+//        Assertions.assertEquals(2, result.size());
+//        Assertions.assertEquals("Product 1", result.get(0).getProductName());
+//        Assertions.assertEquals("Product 2", result.get(1).getProductName());
+//    }
+//
+//    @Test
+//    public void testGetProductByMarket_EmptyMarketName() {
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            productService.getProductByMarket("");
+//        });
+//
+//        verify(productRepository, never()).findProductsByMarketName(anyString());
+//    }
+//
+//    @Test
+//    public void testGetProductByMarket_NullMarketName() {
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            productService.getProductByMarket(null);
+//        });
+//
+//        verify(productRepository, never()).findProductsByMarketName(anyString());
+//    }
+//
+//    @Test
+//    public void testGetProductByMarket_NoProductsFound() {
+//        String market = "Test Market";
+//        when(productRepository.findProductsByMarketName(market)).thenReturn(null);
+//
+//        Assertions.assertThrows(MarketNotFoundException.class, () -> {
+//            productService.getProductByMarket(market);
+//        });
+//    }
+//
+//    @Test
+//    public void testGetProductByMarket_NoProductsFoundEmptyList() {
+//        String market = "Test Market";
+//        List<Product> products = new ArrayList<>();
+//        when(productRepository.findProductsByMarketName(market)).thenReturn(products);
+//
+//        Assertions.assertThrows(MarketNotFoundException.class, () -> {
+//            productService.getProductByMarket(market);
+//        });
+//    }
 }

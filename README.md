@@ -75,5 +75,3 @@ Kubernetes is used as the orchestration tool to manage the deployment, scaling, 
 
 Kubernetes enables vertical scaling, allowing individual microservices to handle increased load by allocating more resources to them. This ensures that critical services can handle higher traffic without compromising performance.
 
-=======
-
