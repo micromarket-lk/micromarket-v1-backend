@@ -39,7 +39,7 @@ public class FraudController {
      * @param customerId The ID of the customer to check for fraud.
      * @return A FraudCheckResponse object containing the result of the fraud check (true if fraudulent, false otherwise).
      */
-    @GetMapping(path = "{/customerId}")
+    @GetMapping(path = "{customerId}")
     public FraudCheckResponse isFraudster(@PathVariable("customerId") Integer customerId) {
         // Perform fraud check using the FraudCheckService
         boolean isFraudulentCustomer = fraudCheckService.isFraudulentCustomer(customerId);

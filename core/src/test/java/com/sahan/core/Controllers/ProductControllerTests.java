@@ -2,7 +2,6 @@ package com.sahan.core.Controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -38,8 +37,9 @@ public class ProductControllerTests {
         // Arrange
         String validMarket = "Test Market";
         List<Product> mockProducts = new ArrayList<>();
-        mockProducts.add(new Product(1L, "Product 1", validMarket));
-        mockProducts.add(new Product(2L, "Product 2", validMarket));
+
+        mockProducts.add(new Product(new String("1"), "Product 1", validMarket));
+        mockProducts.add(new Product(new String("2"), "Product 2", validMarket));
         when(productService.getProductByMarket(validMarket)).thenReturn(mockProducts);
 
         // Act
@@ -50,8 +50,8 @@ public class ProductControllerTests {
         assertNotNull(response.getBody());
         List<Product> products = (List<Product>) response.getBody();
         assertEquals(2, products.size());
-        assertEquals("Product 1", products.get(0).getName());
-        assertEquals("Product 2", products.get(1).getName());
+        assertEquals("Product 1", products.get(0).getProductName());
+        assertEquals("Product 2", products.get(1).getProductName());
     }
 
     @Test
@@ -79,7 +79,4 @@ public class ProductControllerTests {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Market parameter cannot be empty", response.getBody());
     }
-
-    // Similar tests for other methods...
-
 }

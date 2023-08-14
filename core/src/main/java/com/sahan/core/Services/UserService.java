@@ -35,9 +35,11 @@ public class UserService {
 
         // Create a new User object
         User user = User.builder()
+                .userName(userRegistrationRequest.userName())
                 .firstName(userRegistrationRequest.firstName())
                 .lastName(userRegistrationRequest.lastName())
                 .email(userRegistrationRequest.email())
+                .role(userRegistrationRequest.role().toString())
                 .build();
 
         // Save the user in the database
