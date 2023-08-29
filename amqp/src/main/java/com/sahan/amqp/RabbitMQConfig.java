@@ -57,6 +57,7 @@ public class RabbitMQConfig {
         factory.setMessageConverter(jacksonConverter());
         return factory;
     }
+    // this is a new comment
 
     /**
      * Bean definition for the jacksonConverter.
